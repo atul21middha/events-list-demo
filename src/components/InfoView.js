@@ -7,17 +7,7 @@ const InfoView = () => {
 
   return (
     <React.Fragment>
-      {loading && <div style={{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 3
-      }} className="">
+      {loading  && <div className="loader">
         <Spinner animation="border"/>
       </div>}
     </React.Fragment>

@@ -3,8 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-calendar/dist/Calendar.css';
 import './styles/styles.css';
+import 'react-infinite-calendar/styles.css';
 import Header from "./components/Header";
 import Events from "./modules/Events";
+import InfoView from "./components/InfoView";
 
 const App = () => {
 
@@ -12,6 +14,7 @@ const App = () => {
     <div className='position-relative'>
       <Header/>
       <Events/>
+      <InfoView/>
     </div>
   );
 };

@@ -31,8 +31,8 @@ const EventItem = ({event}) => {
         <div className='d-flex align-items-center mb-3'>
           <h2>{destination}</h2>
           <div className='ml-auto d-flex align-items-center'>
-            <BsPencil style={{cursor: 'pointer'}} onClick={toggleShowAddDialog}/>
-            <BsFillTrashFill className='ml-2' style={{cursor: 'pointer'}} onClick={toggleShowDialog}/>
+            <BsPencil className='cursor' onClick={toggleShowAddDialog}/>
+            <BsFillTrashFill className='ml-2 cursor' onClick={toggleShowDialog}/>
           </div>
         </div>
         <div className='d-flex align-items-center'>

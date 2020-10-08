@@ -6,7 +6,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import AddEvent from "./AddEvent";
-import InfoView from "../../components/InfoView";
 import EventCalendar from "./EventCalendar";
 
 const Events = () => {
@@ -22,20 +21,27 @@ const Events = () => {
   const toggleShowAddDialog = () => setShowAddDialog(!showAddDialog);
 
   return (
-    <div className='mt-3 p-5'>
-      <div className='text-right mb-5'>
-        <Button variant='primary' onClick={toggleShowAddDialog}>Add Event</Button>
-      </div>
+    <React.Fragment>
       {eventsList.length > 0 ?
-      <Row>
-        <Col><EventsList/></Col>
-        <Col>
-          <EventCalendar eventsList={eventsList}/>
-        </Col>
-      </Row> : <div>No Events listed!</div>}
-      <InfoView/>
+        <div className=' px-5 py-5 mt-3 d-flex justify-content-center align-items-center'>
+          <Row>
+            <Col><EventsList/></Col>
+            <Col>
+              <div className='text-right mt-n5 mb-2 ml-n5'>
+                <Button variant='primary' onClick={toggleShowAddDialog}>Add Event</Button>
+              </div>
+              <EventCalendar eventsList={eventsList}/>
+            </Col>
+          </Row>
+        </div>
+        :
+          <div className='noEvents'>
+            <h3 className="gx-font-weight-bold gx-my-4">No Events Listed!</h3>
+            <Button variant='primary' onClick={toggleShowAddDialog}>Add Event</Button>
+          </div>
+      }
       {showAddDialog && <AddEvent show={showAddDialog} handleClose={toggleShowAddDialog}/>}
-    </div>
+    </React.Fragment>
   );
 };
 
