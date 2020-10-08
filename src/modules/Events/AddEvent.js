@@ -4,50 +4,54 @@ import {Button} from "react-bootstrap";
 import {onAddNewEvent, onUpdateEvent} from "../../redux/actions/Events";
 import {useDispatch} from "react-redux";
 import DatePicker from "react-datepicker";
-import moment from 'moment';
 import {validateData} from "../../components/Validation";
+import {convertDateToISO, getDateString} from "../../utils/dateHelpers";
 
 
 const AddEvent = ({show, handleClose, event}) => {
-  // console.log("date", moment(event.start).utc().format('YYYY/MM/DD'))
+
   const dispatch = useDispatch();
   const [destination, setDestination] = useState(event ? event.destination : '');
-  const [date, setDate] = useState(event ? '' : '');
+  const [date, setDate] = useState(event ? getDateString(event.start, 'ddd MMM DD YYYY kk:mm:ss Z') : '');
   const [duration, setDuration] = useState(event ? event.duration : '');
   const [comment, setComment] = useState(event ? event.comment : '');
   const [validationErrors, setValidationErrors] = useState({});
 
-  const onSaveEvent = () => {
+  const getErrorMessage = (property) => {
+    if(validationErrors.errors && validationErrors.errors[property]) {
+      return (
+        <div className='text-danger'>{validationErrors.errors[property]}</div>
+      )
+    }
+  };
+
+  const onSubmitForm = () => {
     let validateForm = validateData({destination, date, duration, comment});
     if (validateForm.ERROR) {
       setValidationErrors(validateForm)
     } else {
-      if (event) {
-        const data = {
-          ...event, destination, comment
-        };
-        dispatch(onUpdateEvent(data));
-      } else {
-        if (destination !== "") {
-          const data = {
-            destination,
-            duration, comment,
-            start: moment(date).toISOString()
-          };
-          dispatch(onAddNewEvent(data));
-        }
-      }
-      handleClose();
+      onSaveEvent();
     }
   };
 
-  const getErrorMessage = (property) => {
-    if(validationErrors.errors && validationErrors.errors[property]) {
-      return (
-    <div className='text-danger'>{validationErrors.errors[property]}</div>
-      )}
+  const onSaveEvent = () => {
+    if (event) {
+      const data = {
+        ...event, destination, comment
+      };
+      dispatch(onUpdateEvent(data));
+    } else {
+      if (destination !== "") {
+        const data = {
+          destination,
+          duration, comment,
+          start: convertDateToISO(date)
+        };
+        dispatch(onAddNewEvent(data));
+      }
+    }
+    handleClose();
   };
-
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -74,17 +78,14 @@ const AddEvent = ({show, handleClose, event}) => {
           <div>
             <label>Start Date</label>
             <div>
-              <DatePicker style={{display: 'block'}}
+              <DatePicker
                 dateFormat="dd-MM-yyyy"
                 placeholderText="Start Date"
-                className="w-100 mb-2 d-block"
+                className="w-100 mb-2"
                 showTimeInput
                 disabled={event}
                 selected={date}
-                onChange={value => {
-                  console.log("value", value)
-                  setDate(value)
-                }}
+                onChange={value => setDate(value)}
               />
               {getErrorMessage('date')}
             </div>
@@ -124,7 +125,7 @@ const AddEvent = ({show, handleClose, event}) => {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={onSaveEvent}>
+        <Button variant="primary" onClick={onSubmitForm}>
           {event ? 'Save' : 'Add'}
         </Button>
       </Modal.Footer>

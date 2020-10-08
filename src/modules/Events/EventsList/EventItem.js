@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import Card from "react-bootstrap/Card";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
-import moment from 'moment';
 import {useDispatch} from "react-redux";
 import {BsFillTrashFill, BsPencil} from "react-icons/bs";
 import {onDeleteEvent} from "../../../redux/actions/Events";
 import DeleteDialog from "../../../components/DeleteDialog";
 import AddEvent from "../AddEvent";
+import {getDateInDesiredFormat} from "../../../utils/dateHelpers";
 
 
 const EventItem = ({event}) => {
@@ -36,7 +36,7 @@ const EventItem = ({event}) => {
           </div>
         </div>
         <div className='d-flex align-items-center'>
-          <p className="text-grey">on {moment(start).format('LLLL')}</p>
+          <p className="text-grey">on {getDateInDesiredFormat(start,'LLLL')}</p>
           <p className='mx-auto'>for {duration} days</p>
         </div>
         <p>{comment}</p>
