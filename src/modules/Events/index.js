@@ -27,7 +27,7 @@ const Events = () => {
           <Row>
             <Col><EventsList/></Col>
             <Col>
-              <div className='text-right mt-n5 mb-2 ml-n5'>
+              <div className='text-right mt-n5 mb-2'>
                 <Button variant='primary' onClick={toggleShowAddDialog}>Add Event</Button>
               </div>
               <EventCalendar eventsList={eventsList}/>

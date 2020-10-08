@@ -1,7 +1,7 @@
 import React from 'react';
 import Calendar from 'react-calendar';
 import {getDateFromUTC} from "../../../utils/dateHelpers";
-import InfiniteCalendar from 'react-infinite-calendar';
+
 
 const EventCalendar = ({eventsList}) => {
 
@@ -9,20 +9,17 @@ const EventCalendar = ({eventsList}) => {
     const updatedDate = getDateFromUTC(date);
     const eventDates = eventsList.map(item => getDateFromUTC(item.start));
     if (eventDates.includes(updatedDate)) {
-      return "red"
+      return "bg-primary"
     }
     return "";
   };
 
   return (
-    // <div style={{position: 'sticky', top: 100, bottom: 0, zIndex: 2}}>
-    //   <Calendar
-    //     style={{backgroundColor: 'red'}}
-    //     tileClassName={({activeStartDate, date, view}) => getDateColor(date)}/>
-    // </div>
-    <InfiniteCalendar
-      className='ml-auto'
-    />
+    <div style={{position: 'sticky', top: 100, bottom: 0, zIndex: 2}}>
+      <Calendar
+        className='ml-auto'
+        tileClassName={({activeStartDate, date, view}) => getDateColor(date)}/>
+    </div>
   );
 };
 
