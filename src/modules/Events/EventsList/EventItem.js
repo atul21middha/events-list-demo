@@ -41,7 +41,7 @@ const EventItem = ({event}) => {
         </div>
         <p>{comment}</p>
         <div className='d-flex flex-column justify-content-center align-items-center'>
-          <h4 className="text-primary mb-3">Are You ready to join?</h4>
+          <h4 className="text-primary mb-3">Are you ready to join?</h4>
           <ButtonGroup className="mb-1">
             <Button className="mb-0" type="primary">Yes</Button>
             <Button className="btn-warning mb-0">Maybe</Button>
