@@ -7,14 +7,18 @@ import {useDispatch} from "react-redux";
 import {BsFillTrashFill, BsPencil} from "react-icons/bs";
 import {onDeleteEvent} from "../../../redux/actions/Events";
 import DeleteDialog from "../../../components/DeleteDialog";
+import AddEvent from "../AddEvent";
 
 
 const EventItem = ({event}) => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showAddDialog, setShowAddDialog] = useState(false);
   const {destination, start, duration, comment} = event;
   const dispatch = useDispatch();
 
   const toggleShowDialog = () => setShowDeleteDialog(!showDeleteDialog);
+
+  const toggleShowAddDialog = () => setShowAddDialog(!showAddDialog);
 
   const onConfirmDelete = () => {
     dispatch(onDeleteEvent(event.id));
@@ -27,7 +31,7 @@ const EventItem = ({event}) => {
         <div className='d-flex align-items-center mb-3'>
           <h2>{destination}</h2>
           <div className='ml-auto d-flex align-items-center'>
-            <BsPencil style={{cursor: 'pointer'}}/>
+            <BsPencil style={{cursor: 'pointer'}} onClick={toggleShowAddDialog}/>
             <BsFillTrashFill className='ml-2' style={{cursor: 'pointer'}} onClick={toggleShowDialog}/>
           </div>
         </div>
@@ -47,6 +51,7 @@ const EventItem = ({event}) => {
       </div>
       {showDeleteDialog &&
       <DeleteDialog show={showDeleteDialog} handleClose={toggleShowDialog} onDelete={onConfirmDelete}/>}
+      {showAddDialog && <AddEvent show={showAddDialog} handleClose={toggleShowAddDialog} event={event}/>}
     </Card>
   );
 };
