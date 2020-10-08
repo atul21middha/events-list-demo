@@ -15,19 +15,19 @@ export default (state = initialState, action) => {
     case ADD_NEW_EVENT: {
       return {
         ...state,
-        eventsList: action.payload
+        eventsList: [action.payload, ...state.eventsList]
       }
     }
     case UPDATE_EVENT: {
       return {
         ...state,
-        eventsList: action.payload
+        eventsList: state.eventsList.map(event => event.id === action.payload.id ? action.payload : event)
       }
     }
     case DELETE_EVENT: {
       return {
         ...state,
-        eventsList: action.payload
+        eventsList: state.eventsList.filter(event => event.id !== action.payload)
       }
     }
     default:
