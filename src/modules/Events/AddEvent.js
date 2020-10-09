@@ -70,7 +70,10 @@ const AddEvent = ({show, handleClose, event}) => {
                 placeholder="Destination"
                 value={destination}
                 className="w-100 mb-2"
-                onChange={(e) => setDestination(e.target.value)}
+                onChange={(e) => {
+                  setDestination(e.target.value)
+                  setValidationErrors({})
+                }}
               />
               {getErrorMessage('destination')}
             </div>
@@ -85,7 +88,10 @@ const AddEvent = ({show, handleClose, event}) => {
                 showTimeInput
                 disabled={event}
                 selected={date}
-                onChange={value => setDate(value)}
+                onChange={value => {
+                  setDate(value)
+                  setValidationErrors({})
+                }}
               />
               {getErrorMessage('date')}
             </div>
@@ -100,7 +106,10 @@ const AddEvent = ({show, handleClose, event}) => {
                 placeholder="Duration(in days)"
                 value={duration}
                 className="w-100 mb-2"
-                onChange={(e) => setDuration(e.target.value)}
+                onChange={(e) => {
+                  setDuration(e.target.value)
+                  setValidationErrors({})
+                }}
               />
               {getErrorMessage('duration')}
             </div>
@@ -114,7 +123,10 @@ const AddEvent = ({show, handleClose, event}) => {
                 placeholder="Comment"
                 value={comment}
                 className="w-100 mb-2"
-                onChange={(e) => setComment(e.target.value)}
+                onChange={(e) => {
+                  setComment(e.target.value)
+                  setValidationErrors({})
+                }}
               />
               {getErrorMessage('comment')}
             </div>
